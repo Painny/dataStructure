@@ -137,18 +137,23 @@ class LinkList
             return false;
         }
 
-        $lastNodeIndex=$this->length-1;
+        if($this->length == 1){
+            $oldLast=$this->header;
+            $this->header=$this->footer;
+        }else{
+            $lastNodeIndex=$this->length-1;
 
-        //找到倒数第二个节点
-        $node=$this->header;
-        for ($i=0;$i<$lastNodeIndex-1;$i++){
-            $node=$node->getNext();
+            //找到倒数第二个节点
+            $node=$this->header;
+            for ($i=0;$i<$lastNodeIndex-1;$i++){
+                $node=$node->getNext();
+            }
+            //记录待删除的节点，用于返回
+            $oldLast=$node->getNext();
+            //删除节点
+            $node->setNext(null);
+            $this->footer=$node;
         }
-        //记录待删除的节点，用于返回
-        $oldLast=$node->getNext();
-        //删除节点
-        $node->setNext(null);
-        $this->footer=$node;
 
         $this->length--;
         return $oldLast;
