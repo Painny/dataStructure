@@ -40,8 +40,8 @@ var_dump($linkList->getFirst());
 
 //--------------栈--------------------
 $expression=new \Stack\Expression();
-var_dump($expression->postfixExpression("3+2*4-9%2",true));
-var_dump($expression->calculate("3+2*4-9%2"));
+var_dump($expression->checkBrackets("(3+2)*(9-4)%2",true));
+var_dump($expression->calculate("(3+2)*(9-4)%2"));
 
 
 
