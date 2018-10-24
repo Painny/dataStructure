@@ -47,7 +47,7 @@ class LinkListStack
         if($this->isEmpty()){
             return null;
         }
-        $node=$this->linkList->getFirst();
+        $node=$this->linkList->getLast();
         return $node->value();
     }
 
