@@ -1,0 +1,22 @@
+{
+  "name": "pengyu/dataStruct",
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "authors": [
+    {
+      "name": "pengyu",
+      "email": "917103429@qq.com"
+    }
+  ],
+  "autoload": {
+    "classmap": [
+    ],
+    "psr-4": {
+      "Tree\\": "tree/",
+      "Stack\\":"stack/",
+      "LinkList\\":"linkList/"
+    }
+  }
+
+}

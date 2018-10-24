@@ -1,0 +1,245 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: pengyu
+ * Date: 2018/10/16
+ * Time: 9:53
+ */
+namespace Tree;
+use Tree\BSTreeNode as Node;
+
+class BSTree
+{
+    private $rootNode=null;
+    private $length=0;
+
+    public function __construct($arr)
+    {
+        $this->rootNode=new Node($arr[0]);
+        $this->length=1;
+        unset($arr[0]);
+        foreach ($arr as $item){
+            $this->insert($item);
+        }
+    }
+
+    //获取节点个数
+    public function getLength()
+    {
+        return $this->length;
+    }
+
+    //获取根节点
+    public function getRootNode()
+    {
+        return $this->rootNode;
+    }
+
+    //插入节点
+    public function insert($value)
+    {
+        if($value===null){
+            return;
+        }
+        //新节点
+        $newNode=new Node($value);
+        if(!$this->rootNode){
+            $this->rootNode=$newNode;
+            return;
+        }
+        //当前节点
+        $node=$this->rootNode;
+        while (true){
+            $nodeValue=$node->getValue();
+            //比当前节点值小，放入当前节点的左子节点分支
+            if($nodeValue > $value){
+                //左子节点不存在，则放入
+                if(!$node->getLeft()){
+                    $node->setLeft($newNode);
+                    //记录父节点
+                    $newNode->setParent($node);
+                    $this->length++;
+                    return;
+                }
+                //左子节点存在则把左子节点当作当前节点继续下一轮值判断
+                $node=$node->getLeft();
+            }else if($nodeValue < $value){    //放入当前节点的右子节点分支
+                if(!$node->getRight()){
+                    $node->setRigth($newNode);
+                    //记录父节点
+                    $newNode->setParent($node);
+                    $this->length++;
+                    return;
+                }
+                $node=$node->getRight();
+            }else{   //已有相同值节点，不做处理
+                return;
+            }
+        }
+    }
+
+    //根据值获取到节点
+    public function getNodeByValue($value)
+    {
+        $node=$this->rootNode;
+        while($node){
+            $nodeValue=$node->getValue();
+            if($nodeValue==$value){
+                break;
+            }
+            if($value > $nodeValue){
+                $node=$node->getRight();
+            }else{
+                $node=$node->getLeft();
+            }
+        }
+        return $node;
+    }
+
+    //根据值删除节点  todo 待做
+    public function delete($value)
+    {
+
+    }
+
+    //前序遍历(递归方式)
+    public function preThroughByRecursion($node)
+    {
+        $arr=[];
+        if($node){
+            array_push($arr,$node->getValue());
+            $arr=array_merge($arr,$this->preThroughByRecursion($node->getLeft()));
+            $arr=array_merge($arr,$this->preThroughByRecursion($node->getRight()));
+        }
+        return $arr;
+    }
+
+    //中序遍历(递归方式)
+    public function midThroughByRecursion($node)
+    {
+        $arr=[];
+        if($node){
+            $arr=array_merge($arr,$this->midThroughByRecursion($node->getLeft()));
+            array_push($arr,$node->getValue());
+            $arr=array_merge($arr,$this->midThroughByRecursion($node->getRight()));
+        }
+        return $arr;
+    }
+
+    //后序遍历(递归方式)
+    public function backThroughByRecursion($node)
+    {
+        $arr=[];
+        if($node){
+            $arr=array_merge($arr,$this->backThroughByRecursion($node->getLeft()));
+            $arr=array_merge($arr,$this->backThroughByRecursion($node->getRight()));
+            array_push($arr,$node->getValue());
+        }
+        return $arr;
+    }
+
+    //前序遍历(栈方式) *入栈打印*
+    public function preThroughByStack(Node $node)
+    {
+        //存放最终遍历排序
+        $arr=[];
+        //栈
+        $stack=[];
+
+        while (true){
+            if($node){
+                //入栈，打印
+                array_push($stack,$node);
+                array_push($arr,$node->getValue());
+                //遍历入栈打印左子树节点
+                $leftNode=$node->getLeft();
+                while($leftNode){
+                    array_push($stack,$leftNode);
+                    array_push($arr,$leftNode->getValue());
+                    $leftNode=$leftNode->getLeft();
+                }
+            }
+
+            if(count($stack)==0){
+                break;
+            }
+            //出栈
+            $topNode=array_pop($stack);
+            //把栈顶节点的右子节点当作根节点继续遍历
+            $node=$topNode->getRight();
+        }
+        return $arr;
+    }
+
+    //中序遍历(栈方式) *出栈打印*
+    public function midThroughByStack(Node $node)
+    {
+        $arr=[];
+        $stack=[];
+
+        while(true){
+            if($node){
+                //入栈
+                array_push($stack,$node);
+                //左子节点遍历入栈
+                $leftNode=$node->getLeft();
+                while ($leftNode){
+                    array_push($stack,$leftNode);
+                    $leftNode=$leftNode->getLeft();
+                }
+            }
+
+            if(count($stack)==0){
+                break;
+            }
+
+            //出栈打印
+            $topNode=array_pop($stack);
+            array_push($arr,$topNode->getValue());
+
+            //把右子节点当作根节点继续遍历
+            $node=$topNode->getRight();
+        }
+        return $arr;
+    }
+
+    //后序遍历(栈方式)  *出栈打印*
+    public function backThrouthByStack(Node $node)
+    {
+        $arr=[];
+        $stack=[];
+        //最后一次出栈的节点
+        $lastNode=null;
+        while (true){
+            if($node){
+                //节点入栈
+                array_push($stack,$node);
+                //左子树入栈
+                $leftNode=$node->getLeft();
+                while ($leftNode){
+                    array_push($stack,$leftNode);
+                    $leftNode=$leftNode->getLeft();
+                }
+            }
+
+            if(count($stack)==0){
+                break;
+            }
+
+            //获取栈顶节点
+            $topNode=end($stack);
+
+            //如果右子节点没有子节点 或者 已经右子节点已经被访问过 不访问，直接出栈打印
+            if($topNode->getRight() == null || $topNode->getRight()==$lastNode){
+                $lastNode=array_pop($stack);
+                array_push($arr,$topNode->getValue());
+                $node=null;
+            }else{
+                $node=$topNode->getRight();
+            }
+        }
+        return $arr;
+    }
+
+}
+
