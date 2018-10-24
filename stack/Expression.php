@@ -117,6 +117,11 @@ class Expression
     //计算表达式的值
     public function calculate($exp)
     {
+        //检查表达式括号是否完整
+        if(!$this->checkBrackets($exp)){
+            throw new \Exception("表达式括号不完整");
+        }
+
         //转为后缀表达式
         $posArr=$this->postfixExpression($exp);
         //存放数字的栈
