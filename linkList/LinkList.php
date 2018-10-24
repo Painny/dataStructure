@@ -20,6 +20,12 @@ class LinkList
         return $this->length==0;
     }
 
+    //获取长度
+    public function lenght()
+    {
+        return $this->length;
+    }
+
     //获取首节点
     public function getFirst()
     {
