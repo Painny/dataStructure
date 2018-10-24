@@ -138,10 +138,14 @@ class LinkList
         for ($i=0;$i<$lastNodeIndex-1;$i++){
             $node=$node->getNext();
         }
+        //记录待删除的节点，用于返回
+        $oldLast=$node->getNext();
+        //删除节点
         $node->setNext(null);
+        $this->footer=$node;
 
         $this->length--;
-        return true;
+        return $oldLast;
     }
 
     //删除首节点
@@ -151,10 +155,11 @@ class LinkList
             return false;
         }
 
-        $nextNode=$this->header->getNext();
-        $this->header=$nextNode;
+        $oldFirst=$this->header;
+        $this->header=$oldFirst->getNext();;
         $this->length--;
-        return true;
+
+        return $oldFirst;
     }
 
     //删除指定位置节点
@@ -174,15 +179,16 @@ class LinkList
                 $node=$node->getNext();
                 continue;
             }
+
             //把待删节点的前置节点和待删节点的后置节点连接
             if($preNode){
                 $preNode->setNext($node->getNext());
             }else{  //没前置节点，设置头节点为待删待删节点的后置节点
                 $this->header=$node->getNext();
             }
-            $this->length--;
-            return true;
 
+            $this->length--;
+            return $node;
         }
 
         return false;
@@ -204,14 +210,16 @@ class LinkList
                 $node=$node->getNext();
                 continue;
             }
+
             //把待删节点的前置节点和待删节点的后置节点连接
             if($preNode){
                 $preNode->setNext($node->getNext());
             }else{  //没前置节点，设置头节点为待删待删节点的后置节点
                 $this->header=$node->getNext();
             }
+
             $this->length--;
-            return true;
+            return $node;
         }
 
         return false;
