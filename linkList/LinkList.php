@@ -231,6 +231,12 @@ class LinkList
         return false;
     }
 
+    //清空链表
+    public function clear()
+    {
+        $this->header=$this->footer=null;
+        $this->length=0;
+    }
 
 
 }
