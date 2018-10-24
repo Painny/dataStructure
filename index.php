@@ -43,5 +43,6 @@ $expression=new \Stack\Expression();
 var_dump($expression->checkBrackets("(3+2)*(9-4)%2",true));
 var_dump($expression->calculate("(3+2)*(9-4)%2"));
 
-
+var_dump($expression->checkBrackets("3+((6+3)*7-2)*2",true));
+var_dump($expression->calculate("3+((6+3)*7-2)*2"));
 
