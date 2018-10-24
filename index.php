@@ -39,7 +39,9 @@ var_dump($linkList->getFirst());
 
 
 //--------------栈--------------------
-$stack=new \Stack\Expression();
-var_dump($stack->postfixExpression("1+2*3+(4*5+6)*7",true));
+$expression=new \Stack\Expression();
+var_dump($expression->postfixExpression("3+2*4-9%2",true));
+var_dump($expression->calculate("3+2*4-9%2"));
+
 
 

@@ -125,9 +125,50 @@ class Expression
         foreach ($posArr as $item){
             //数字直接入栈
             if(is_numeric($item)){
-
+                $stack->push($item);
+                continue;
             }
+
+            //是操作符，直接从栈弹出两个数字进行计算，把结果入栈
+            $num2=$stack->pop();
+            $num1=$stack->pop();
+            $result=$this->cal($num1,$num2,$item);
+            $stack->push($result);
+
         }
+        //栈最后存放的就是计算结果
+        return $stack->pop();
+    }
+
+    //两个数相计算的值
+    private function cal($num1,$num2,$op)
+    {
+        switch ($op){
+            case "+":
+                $result=$num1+$num2;
+                break;
+            case "-":
+                $result=$num1-$num2;
+                break;
+            case "*":
+            case "x":
+                $result=$num1*$num2;
+                break;
+            case "/":
+            case "÷":
+                if($num1 == 0){
+                    throw new \Exception("被除数不能为0");
+                }
+                $result=$num1/$num2;
+                break;
+            case "%":
+                $result=$num1%$num2;
+                break;
+            default:
+                throw new \Exception("操作符错误");
+        }
+
+        return $result;
     }
 
 
