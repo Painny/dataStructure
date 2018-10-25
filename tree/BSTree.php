@@ -122,6 +122,7 @@ class BSTree
             }else{
                 $this->rootNode=null;
             }
+            $this->length--;
         }else if($node->getLeft() && $node->getRight()){  //左右节点都有，用中序前驱节点或后继节点代替待删节点
             //找到中序后继节点(右分支最小的)
             $backNode=$this->midThroughBackNode($node);
@@ -144,9 +145,9 @@ class BSTree
             }else{
                 $this->rootNode=null;
             }
+            $this->length--;
         }
 
-        $this->length--;
         return true;
     }
 
