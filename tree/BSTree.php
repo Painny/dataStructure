@@ -65,7 +65,7 @@ class BSTree
                 $node=$node->getLeft();
             }else if($nodeValue < $value){    //放入当前节点的右子节点分支
                 if(!$node->getRight()){
-                    $node->setRigth($newNode);
+                    $node->setRight($newNode);
                     //记录父节点
                     $newNode->setParent($node);
                     $this->length++;
@@ -99,7 +99,80 @@ class BSTree
     //根据值删除节点  todo 待做
     public function delete($value)
     {
+        $node=$this->getNodeByValue($value);
+        if(!$node || $this->length == 0){
+            return false;
+        }
 
+        $parentNode=$node->getParent();
+        $hasParent=true;
+        //如果没有父节点
+        if(!$parentNode){
+            $hasParent=false;
+        }
+
+        //无左右节点,直接删除
+        if(!$node->getRight() && !$node->getLeft()){
+            if($hasParent){
+                if($parentNode->getLeft() == $node){
+                    $parentNode->setLeft(null);
+                }else{
+                    $parentNode->setRight(null);
+                }
+            }else{
+                $this->rootNode=null;
+            }
+        }else if($node->getLeft() && $node->getRight()){  //左右节点都有，用中序前驱节点或后继节点代替待删节点
+            //找到中序后继节点(右分支最小的)
+            $backNode=$this->midThroughBackNode($node);
+            $node->setValue($backNode->getValue());
+            $this->delete($backNode);
+        }else{  //只有左右中的一个节点
+            if($node->getRight()){
+                $childIndex="setRight";
+            }else{
+                $childIndex="setLeft";
+            }
+
+            if($hasParent){
+                if($parentNode->getLeft() == $node){
+                    $parentNode->setLeft($node->$childIndex());
+                }else{
+                    $parentNode->setRight($node->$childIndex());
+                }
+            }else{
+                $this->rootNode=null;
+            }
+        }
+
+        $this->length--;
+        return true;
+    }
+
+    //找到节点的中序前驱节点(左分支最大的)
+    public function midThroughPreNode(Node $node)
+    {
+        $node=$node->getLeft();
+        while(true){
+            if(!$node->getRight()){
+                break;
+            }
+            $node=$node->getRight();
+        }
+        return $node;
+    }
+
+    //找到节点的中序后继节点(右分支最小的)
+    public function midThroughBackNode(Node $node)
+    {
+        $node=$node->getRight();
+        while (true){
+            if(!$node->getLeft()){
+                break;
+            }
+            $node=$node->getLeft();
+        }
+        return $node;
     }
 
     //前序遍历(递归方式)
