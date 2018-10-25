@@ -15,12 +15,13 @@ $tree=new Tree\BSTree($arr);
 echo "元数据:".json_encode($arr)."<br />";
 echo "节点数量:".$tree->getLength()."<br />";
 
+$tree->delete(7);
+
 echo "<hr />";
 
 echo "前序遍历(递归):".json_encode($tree->preThroughByRecursion($tree->getRootNode()))."<br />";
 echo "中序遍历(递归):".json_encode($tree->midThroughByRecursion($tree->getRootNode()))."<br />";
 echo "后序遍历(递归):".json_encode($tree->backThroughByRecursion($tree->getRootNode()))."<br />";
-$tree->delete(5);
 
 echo "<hr />";
 
