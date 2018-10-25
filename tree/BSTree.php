@@ -96,7 +96,7 @@ class BSTree
         return $node;
     }
 
-    //根据值删除节点  todo 待做
+    //根据值删除节点
     public function delete($value)
     {
         $node=$this->getNodeByValue($value);
