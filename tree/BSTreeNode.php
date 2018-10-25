@@ -22,6 +22,12 @@ class BSTreeNode
         $this->parent=null;
     }
 
+    //设置节点值
+    public function setValue($value)
+    {
+        $this->data=$value;
+    }
+
     //设置父节点
     public function setParent($node)
     {
@@ -35,7 +41,7 @@ class BSTreeNode
     }
 
     //设置右子节点
-    public function setRigth($node)
+    public function setRight($node)
     {
         $this->rightNode=$node;
     }
