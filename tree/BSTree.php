@@ -130,9 +130,9 @@ class BSTree
             $node->setValue($backNode->getValue());
         }else{  //只有左右中的一个节点
             if($node->getRight()){
-                $childIndex="setRight";
+                $childIndex="getRight";
             }else{
-                $childIndex="setLeft";
+                $childIndex="getLeft";
             }
 
             if($hasParent){
