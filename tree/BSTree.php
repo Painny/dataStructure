@@ -316,5 +316,26 @@ class BSTree
         return $arr;
     }
 
+    //根据拓展二叉树的前序 生成二叉树 (#代表空节点)
+    public function makeByPreOrder(&$arr)
+    {
+        if(!$arr){
+            return null;
+        }
+        $data=$arr[0];
+        if($data == "#"){
+            return null;
+        }
+
+        $node=new Node($data);
+        unset($arr[0]);
+        $arr=array_values($arr);
+        $node->setLeft($this->tmp($arr));
+        unset($arr[0]);
+        $arr=array_values($arr);
+        $node->setRight($this->tmp($arr));
+        return $node;
+    }
+
 }
 
