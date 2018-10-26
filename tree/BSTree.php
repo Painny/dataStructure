@@ -337,10 +337,10 @@ class BSTree
         $node=new Node($data);
         unset($arr[0]);
         $arr=array_values($arr);
-        $node->setLeft($this->tmp($arr));
+        $node->setLeft($this->makeByPreOrder($arr));
         unset($arr[0]);
         $arr=array_values($arr);
-        $node->setRight($this->tmp($arr));
+        $node->setRight($this->makeByPreOrder($arr));
         return $node;
     }
 

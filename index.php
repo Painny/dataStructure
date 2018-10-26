@@ -15,6 +15,10 @@ $tree=new Tree\BSTree($arr);
 echo "元数据:".json_encode($arr)."<br />";
 echo "节点数量:".$tree->getLength()."<br />";
 
+$tmp=new Tree\BSTree();
+$arr=["A","B","#","D","#","#","C","#","#"];
+var_dump($tmp->makeByPreOrder($arr));
+
 
 echo "<hr />";
 
@@ -24,9 +28,9 @@ echo "后序遍历(递归):".json_encode($tree->backThroughByRecursion($tree->ge
 
 echo "<hr />";
 
-echo "前序遍历(栈):".json_encode($tree->preThroughByStack($tree->getRootNode()))."<br />";
-echo "中序遍历(栈):".json_encode($tree->midThroughByStack($tree->getRootNode()))."<br />";
-echo "后序遍历(栈):".json_encode($tree->backThrouthByStack($tree->getRootNode()))."<br />";
+echo "前序遍历(栈):".json_encode($tree->preThroughByStack())."<br />";
+echo "中序遍历(栈):".json_encode($tree->midThroughByStack())."<br />";
+echo "后序遍历(栈):".json_encode($tree->backThrouthByStack())."<br />";
 
 //--------------链表-----------------
 $linkList=new \LinkList\LinkList();
