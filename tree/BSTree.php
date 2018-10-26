@@ -217,13 +217,14 @@ class BSTree
     }
 
     //前序遍历(栈方式) *入栈打印*
-    public function preThroughByStack(Node $node)
+    public function preThroughByStack()
     {
         //存放最终遍历排序
         $arr=[];
         //栈
         $stack=[];
 
+        $node=$this->rootNode;
         while (true){
             if($node){
                 //入栈，打印
@@ -250,11 +251,12 @@ class BSTree
     }
 
     //中序遍历(栈方式) *出栈打印*
-    public function midThroughByStack(Node $node)
+    public function midThroughByStack()
     {
         $arr=[];
         $stack=[];
 
+        $node=$this->rootNode;
         while(true){
             if($node){
                 //入栈
@@ -282,12 +284,14 @@ class BSTree
     }
 
     //后序遍历(栈方式)  *出栈打印*
-    public function backThrouthByStack(Node $node)
+    public function backThrouthByStack()
     {
         $arr=[];
         $stack=[];
         //最后一次出栈的节点
         $lastNode=null;
+
+        $node=$this->rootNode;
         while (true){
             if($node){
                 //节点入栈
