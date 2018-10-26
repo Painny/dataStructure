@@ -15,7 +15,6 @@ $tree=new Tree\BSTree($arr);
 echo "元数据:".json_encode($arr)."<br />";
 echo "节点数量:".$tree->getLength()."<br />";
 
-$tree->delete(10);
 
 echo "<hr />";
 

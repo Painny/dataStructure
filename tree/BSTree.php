@@ -13,14 +13,17 @@ class BSTree
     private $rootNode=null;
     private $length=0;
 
-    public function __construct($arr)
+    public function __construct($arr=[])
     {
-        $this->rootNode=new Node($arr[0]);
-        $this->length=1;
-        unset($arr[0]);
-        foreach ($arr as $item){
-            $this->insert($item);
+        if($arr && is_array($arr)){
+            $this->rootNode=new Node($arr[0]);
+            $this->length=1;
+            unset($arr[0]);
+            foreach ($arr as $item){
+                $this->insert($item);
+            }
         }
+
     }
 
     //获取节点个数
