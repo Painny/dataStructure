@@ -323,24 +323,34 @@ class BSTree
         return $arr;
     }
 
-    //根据拓展二叉树的前序 生成二叉树 (#代表空节点)
+    //根据拓展二叉树的前序 生成二叉树 (#代表空节点，其余值的顺序就是根，左，右节点的顺序)
     public function makeByPreOrder(&$arr)
     {
         if(!$arr){
             return null;
         }
+        //取出第一个值
         $data=$arr[0];
+        //空值(没有节点)
         if($data == "#"){
             return null;
         }
 
+        //生成当前树根节点
         $node=new Node($data);
+
+        //去掉已使用值
         unset($arr[0]);
         $arr=array_values($arr);
+        //用剩下的值继续，生成左节点
         $node->setLeft($this->makeByPreOrder($arr));
+
+        //去掉已使用值
         unset($arr[0]);
         $arr=array_values($arr);
+        //用剩下的值继续，生成右节点
         $node->setRight($this->makeByPreOrder($arr));
+
         return $node;
     }
 
