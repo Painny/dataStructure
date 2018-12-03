@@ -16,9 +16,9 @@ echo "元数据:".json_encode($arr)."<br />";
 echo "节点数量:".$tree->getLength()."<br />";
 
 $tmp=new Tree\BSTree();
-$arr=["A","B","#","D","#","#","C","#","#"];
-var_dump($tmp->makeByPreOrder($arr));
-
+$arr=["#","B","#","D","#","A","#","C","#"];
+var_dump($tmp->makeByMidOrder($arr));
+exit;
 
 echo "<hr />";
 

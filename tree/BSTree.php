@@ -336,7 +336,7 @@ class BSTree
             return null;
         }
 
-        //生成当前树根节点
+        //生成当前树根节点，并赋值
         $node=new Node($data);
 
         //去掉已使用值
@@ -353,6 +353,13 @@ class BSTree
 
         return $node;
     }
+
+    //根据拓展二叉树的中序 生成二叉树  todo
+    public function makeByMidOrder(&$arr)
+    {
+
+    }
+
 
 }
 
