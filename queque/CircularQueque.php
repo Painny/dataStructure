@@ -10,11 +10,11 @@ namespace Queque;
 
 class CircularQueque implements QuequeInterface {
 
-    public $data;
+    private $data;
     private $maxSize;
     private $len;
-    public $firstIndex;
-    public $endIndex;
+    private $firstIndex;
+    private $endIndex;
 
     public function __construct($maxSize)
     {
@@ -35,11 +35,7 @@ class CircularQueque implements QuequeInterface {
             $this->firstIndex=0;
         }
 
-        if($this->endIndex == ($this->maxSize-1)){
-            $this->endIndex=0;
-        }else{
-            $this->endIndex++;
-        }
+        $this->endIndex=($this->endIndex+1)%$this->maxSize;
 
         $this->data[$this->endIndex]=$val;
         $this->len++;
@@ -56,11 +52,7 @@ class CircularQueque implements QuequeInterface {
         $this->data[$this->firstIndex]=null;
         $this->len--;
 
-        if($this->firstIndex == ($this->maxSize-1)){
-            $this->firstIndex=0;
-        }else{
-            $this->firstIndex++;
-        }
+        $this->firstIndex=($this->firstIndex+1)%$this->maxSize;
 
         if($this->isEmpty()){
             $this->firstIndex=$this->endIndex=-1;
