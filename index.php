@@ -8,18 +8,21 @@
 
 require_once "vendor/autoload.php";
 
-$queque=new Queque\CircularQueque(3);
+$queque=new Queque\CircularQueque(5);
 
 $queque->push(1);
 $queque->push(2);
 $queque->push(3);
-//
-$queque->pop();
-$queque->pop();
-$queque->pop();
-//
 //$queque->push(4);
+//
+$queque->pop();
+$queque->pop();
+//
+$queque->push(4);
+$queque->push(5);
+$queque->push(6);
 
 
-echo $queque->firstIndex;
-echo $queque->endIndex;
+echo $queque->len();
+echo $queque->first();
+echo $queque->end();
